@@ -1,0 +1,121 @@
+@use "sass:math";
+
+@mixin responsive-ratio($x, $y, $pseudo: false) {
+    $padding: unquote(math.div($y, $x) * 100 + '%');
+
+    @if $pseudo {
+        &:before {
+            @include pseudo($pos: relative);
+            width: 100%;
+            padding-top: $padding;
+        }
+    }
+
+    @else {
+        padding-top: $padding;
+    }
+}
+
+// @include responsive-ratio(16,9);
+
+
+@mixin truncate($truncation-boundary) {
+    max-width: $truncation-boundary;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+$tablet: 768;
+$large: 1024;
+$desktop: 1280;
+
+@mixin tablet {
+    @media only screen and (min-width: #{$tablet}px) {
+        @content;
+    }
+}
+
+@mixin large {
+    @media only screen and (min-width: #{$large}px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media only screen and (min-width: #{$desktop}px) {
+        @content;
+    }
+}
+
+/* ===== Usage ===== */
+// h1 {
+//   font-size: 10px;
+
+//   @include tablet {
+//     font-size: 12px;
+//   }
+
+//   @include desktop {
+//     font-size: 20px;
+//   }
+// }
+
+:root {
+    --panel-background: rgba(255, 255, 255, 0.4);
+    --window-background: 255, 255, 255;
+    --text-color: #323232;
+}
+
+.dark {
+    --panel-background: rgba(16, 18, 27, 0.4);
+    --window-background: 16, 18, 27;
+    --text-color: #dedede;
+}
+
+$primary-color: #1345e6 !default;
+$secondary-color: #ed239f !default;
+$border-color: rgba(255, 255, 255, 0.3) !default;
+$panel-background: #ffffff;
+$danger-color: #fc0000;
+
+$outline-width: 3px !default;
+$border-width: 0.1rem !default;
+$border-radius: 1rem !default;
+$padding-space: 1rem !default;
+$element-padding: 0.8rem 1.5rem !default;
+
+
+@mixin glass-effect($opacity: 0.5) {
+    background: rgba(var(--window-background), $opacity);
+    background-size: 200% auto;
+    outline-color: transparent;
+    backdrop-filter: blur(#{$opacity*0.5}rem);
+    -webkit-backdrop-filter: blur(#{$opacity*0.5}rem);
+    transition: 0.3s;
+    @include glass-border($opacity: 0.5);
+}
+
+@mixin glass-hover($opacity: 0.5) {
+    &:hover {
+        background: rgba(var(--window-background), $opacity+0.1);
+    }
+
+    &:focus-visible {
+        border-color: transparent;
+    }
+}
+
+
+@mixin glass-border($opacity: 0.5) {
+    border-color: transparent;
+    border-left: $border-width solid $border-color;
+    border-top: $border-width solid $border-color;
+    box-shadow: 0.5rem 1rem 3rem 0 rgba(31, 38, 135, $opacity*2*0.2),
+}
+
+@mixin gradient-background() {
+    background: linear-gradient(to right, $primary-color 0%, $secondary-color 51%, $primary-color 100%);
+    background-size: 200% auto;
+}
