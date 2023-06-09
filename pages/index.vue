@@ -12,6 +12,7 @@ const inputError = {
     <div>
         <Window>
             <template #left-panel>
+                <Navigation/>
                 <Input class="" :error="inputError" label="Tim kiem"></Input>
                 <Button>ABC</Button>
             </template>
