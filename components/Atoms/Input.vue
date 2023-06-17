@@ -2,38 +2,52 @@
     <label :for="name" v-if="label">
         <slot name="label">{{ label }}</slot>
     </label>
-    <input :type="props.type" :name="props.name" :id="props.name" :value="props.modelValue" v-bind="$attrs"
-        :class="classObject" @input="clearError"/>
+    <input
+        v-bind="$attrs"
+        :type="props.type"
+        :name="props.name"
+        :id="props.name"
+        :value="props.modelValue"
+        :class="classObject"
+        @input="clearError"
+    />
     <p v-if="error" class="error-message">{{ errorMessage }}</p>
 </template>
 
 <script lang="ts" setup>
-import { defineProps, computed, ref } from 'vue';
+import { computed, ref } from "vue";
 
 const props = defineProps({
     label: {
         type: String,
-        default: '',
+        default: "",
     },
     type: {
-        type: String as () => 'text' | 'number' | 'textarea' | 'email' | 'password',
-        default: 'text',
+        type: String as () =>
+            | "text"
+            | "number"
+            | "textarea"
+            | "email"
+            | "password",
+        default: "text",
         validator: (value: string) => {
-            return ['text', 'number', 'textarea', 'password'].indexOf(value) !== -1;
+            return (
+                ["text", "number", "textarea", "password"].indexOf(value) !== -1
+            );
         },
     },
     name: {
         type: String,
-        // default: 'input',
-        required: true,
+        default: "input",
+        // required: true,
     },
     modelValue: {
         type: String,
-        default: '',
+        default: "",
     },
     error: {
         type: Object,
-        default: null
+        default: null,
     },
 });
 
@@ -41,32 +55,30 @@ const error = ref(props.error);
 
 const classObject = computed(() => {
     return {
-        'form-control': true,
-        'danger': error.value,
+        "form-control": true,
+        danger: error.value,
     };
 });
 
 const errorMessage = computed(() => {
-  if (props.error && props.error.code) {
-    const errorMessages: Record<string, string> = {
-      'error-code-1': 'Thông báo lỗi 1',
-      'error-code-2': 'Thông báo lỗi 2',
-    };
+    if (props.error && props.error.code) {
+        const errorMessages: Record<string, string> = {
+            "error-code-1": "Thông báo lỗi 1",
+            "error-code-2": "Thông báo lỗi 2",
+        };
 
-    if (props.error.code in errorMessages) {
-      return errorMessages[props.error.code];
+        if (props.error.code in errorMessages) {
+            return errorMessages[props.error.code];
+        }
     }
-  }
 
-  return 'Lỗi không xác định';
+    return "Lỗi không xác định";
 });
 
 const clearError = () => {
     error.value = null;
 };
-
 </script>
-
 
 <style lang="scss" scoped>
 input {
@@ -88,7 +100,7 @@ input {
         border: transparent;
     }
 
-    &+.error-message {
+    & + .error-message {
         color: $danger-color;
         margin-bottom: 1rem;
     }

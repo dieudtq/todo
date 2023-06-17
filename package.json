@@ -11,9 +11,18 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@types/node": "^18",
-    "nuxt": "^3.5.2"
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "eslint": "^8.0.1",
+    "eslint-config-standard-with-typescript": "^35.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-vue": "^9.14.1",
+    "nuxt": "^3.5.2",
+    "typescript": "*"
   },
   "dependencies": {
-    "sass": "^1.63.2"
+    "sass": "^1.63.2",
+    "vite-svg-loader": "^4.0.0"
   }
 }

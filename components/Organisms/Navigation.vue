@@ -25,6 +25,7 @@
 
   const showLabels = ref(true); // Biến để điều khiển ẩn/hiện label
   const activeClass = 'active'; // Tên class cho navigation item đang active
+  const expandedParent = ref(null as number | null); // Biến để lưu trạng thái mở rộng của parent
 
   const navigationItems: NavigationItem[] = [
     {
@@ -42,15 +43,15 @@
       label: 'Parent 2',
       children: [
         { id: 21, icon: 'icon-21', label: 'Child 2-1', route: '/child2-1' },
-        { id: 22, icon: 'icon-22', label: 'Child 2-2', route: '/child2-2' },
+        { id: 22, icon: 'icon-22', label: 'Child 2-2', route: '/' },
       ],
     },
     { id: 3, icon: 'icon-3', label: 'Parent 3', route: '/parent3' },
   ];
 
-  const expandedParent = ref<number | null>(null); // Biến để lưu trạng thái mở rộng của parent
-
   function toggleExpand(parentId: number) {
     expandedParent.value = expandedParent.value === parentId ? null : parentId;
   }
   </script>
+
+  <!-- <component :is="NavigationItem" v-for="navigationItem in navigationItems" :key="navigationItem.id" :navigationItem="navigationItem" :showLabels="showLabels" :activeClass="activeClass" :expandedParent="expandedParent" @toggleExpand="toggleExpand" /> -->
