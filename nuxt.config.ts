@@ -6,7 +6,9 @@
 import type { NuxtConfig } from '@nuxt/types'
 
 const config: NuxtConfig = {
-    buildModules: ['@nuxt/typescript-build'],
+    buildModules: [
+        '@nuxt/typescript-build',
+    ],
     components: [
         {
             path: '~/components', // will get any components nested in let's say /components/test too
