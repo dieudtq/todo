@@ -48,23 +48,20 @@ const vSvg = {
 };
 
 onBeforeMount(async () => {
-    let iconsImport;
+    const iconsImport = import.meta.glob("assets/icons/**.svg", {
+        eager: false,
+        as: "raw",
+    });
+
     try {
-        iconsImport = import.meta.glob("assets/icons/**.svg", {
-            eager: false,
-            as: "raw",
-        });
-        const rawIcon = await iconsImport[`/assets/icons/${props.name}.svg`]();
-        svgContent.value = rawIcon as unknown as string;
+        svgContent.value = await iconsImport[`/assets/icons/${props.name}.svg`]() as unknown as string;;
     } catch (error) {
-        const rawIcon = await iconsImport['/assets/icons/default.svg']();
-        svgContent.value = rawIcon as unknown as string;
+        svgContent.value = await iconsImport["/assets/icons/default.svg"]() as unknown as string;;
         console.error(
-            `[Error] Icon '${props.name}' doesn't exist in 'assets/icons'`
+            `[Error] Icon '${props.name}' doesn't exist in 'assets/icons', the default icon loader`
         );
     }
 });
-
 </script>
 
 <style lang="scss" scoped>
